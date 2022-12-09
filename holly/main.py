@@ -18,6 +18,10 @@ class Holly:
         raw_response = self._get_response(environ, view, request)
                                           
         response = raw_response.encode('utf-8') 
+        print(response)
+        print(response)
+        print(response)
+         
         start_response('200 OK', [
             ('Content-Type', 'text/plain; charset=utf-8'),
             ('Content-Length', str(len(response))),
@@ -39,13 +43,13 @@ class Holly:
 
     def _get_view(self, environ: dict) -> Type[View]:
         raw_url = environ["PATH_INFO"] 
-        view = self._find_view(raw_url)
+        view = self._find_view(raw_url)()
         return view
 
     def _get_request(self, environ: dict):
         return Request(environ)
 
-    def _get_response(self, environ: dict, view: Type[View], request: Request):
+    def _get_response(self, environ: dict, view: Type[View], request: Type[Request]):
         method = environ["REQUEST_METHOD"].lower()
         if not hasattr(view, method):
             return NotAllowed

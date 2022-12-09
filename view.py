@@ -1,9 +1,10 @@
+from typing import Type
 from holly.views import View
 from holly.request import Request
 
 class Homepage(View):
     
-    def get(self, request: Request, *args, **kwargs):
+    def get(self, request: Type[Request], *args, **kwargs):
         return "Hello world from view"
 
 
@@ -16,3 +17,4 @@ class EpicMath(View):
         second_arg = request.GET.get('second')
         if not second_arg or not second_arg[0].isnumeric():
             return f'second пустое либо не является числом'
+        return f'{int(first_arg[0]) + int(second_arg[0])}'
